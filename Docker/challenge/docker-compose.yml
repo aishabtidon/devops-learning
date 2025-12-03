@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  flask:
+    image: challenge-flask
+    build:
+      context: .
+    ports:
+      - "5001:5001"
+    depends_on:
+      - redis
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+  redis:
+    image: challenge-redis
+    build:
+      context: ./redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
